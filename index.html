@@ -93,7 +93,8 @@ const ACCENTS=['#55a5d8','#52b6bf','#93c632','#ffc915','#8267ad','#ec0b63','#f77
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 
 // KPIs
-const kpis=[['תלמידי מחוננים',DATA.stats.students],['ערכי יישוב',DATA.stats.localities],['מורים ברשימה',DATA.stats.teachers],['יעדי מרכז',DATA.stats.goals],['מפגשים בכל לוח',DATA.gantt[0]?.meetings||0]];
+const programCount=Object.fromEntries((DATA.student_programs||[]).map(x=>[x.name,x.count]));
+const kpis=[['תלמידי מחוננים',DATA.stats.students],['מצטיינים',programCount['מצטיינים']??535],['תכנית יח״ד',programCount['תכנית יח״ד']??52],['מצטייני יישוב',programCount['מצטייני יישוב']??137],['ערכי יישוב',DATA.stats.localities],['מורים ברשימה',DATA.stats.teachers],['יעדי מרכז',DATA.stats.goals],['מפגשים בכל לוח',DATA.gantt[0]?.meetings||0]];
 document.getElementById('kpis').innerHTML=kpis.map(x=>`<div class="kpi"><div class="num">${x[1]}</div><div class="lbl">${x[0]}</div></div>`).join('');
 
 // Rationale
